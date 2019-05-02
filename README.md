@@ -1,9 +1,9 @@
 # Adaptive Throttler
 
 A thread-safe throttler library that
-- handles multiple throttlers within one manager
-- allows you ramp up and ramp down request rate per throttler
 - generic for different use cases(eg/ controls the rate limit per host, limit database reads/writes, and etc)
+- easy to keep track of throttlers for multiple use cases
+- allows you to ramp up and ramp down request rate per throttler
 
 The adaptive throttler is a wrapper around the [golang.org/x/time/rate](https://godoc.org/golang.org/x/time/rate) library.
 
@@ -38,7 +38,7 @@ for {
 ```
 
 # How does the package work?
-When the throttlers is first created, it will use `StartingRate` for every key. The request rate per key is adjusted based on the `Increment` and `Decrement` call. For example, say we set
+When the throttlers are first created, it will use `StartingRate` for every key. The request rate per key is adjusted based on the `Increment` and `Decrement` call. For example, say we set
 
 ```
 StartingRate: 10
@@ -60,4 +60,4 @@ Say there were 20 unsuccessful requests in series, the new request rate would hi
 # Can the package only be used for handling HTTP requests?
 No.
 
-Even though the package was originally created for keeping track of throttle limits for different hosts. It is designed to be generic for any types of throttling. For example, you can use it for rate limiting a database's read and write per user. The key will be the user name. 
+Even though the package was originally created for keeping track of throttle limits for different hosts, it is designed to be generic for any types of throttling. For example, you can use it for rate limiting a database's read and write per user. The key will be the user name. 
