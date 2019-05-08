@@ -24,17 +24,20 @@ manager := throttlers.New(throttlers.Params{
 	Decrement: 1,
 })
 
-key := "http://example.com/"
-for {
-	manager.Wait(key)	// waiting until request can be sent
+keys := []string{"http://example.com/", "http://another-example.com/"}
+for _, key := range keys {
+	go func() {
+		manager.Wait(key)	// waiting until request can be sent
 
-	resp, err := http.Get(key)
-	if err != nil {
-		manager.Decrement(key)
-	} else {
-		manager.Increment(key)
+		resp, err := http.Get(key)
+		if err != nil {
+			manager.Decrement(key)
+		} else {
+			manager.Increment(key)
+		}	
 	}
 }
+<-done
 ```
 
 # How does the package work?
