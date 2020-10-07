@@ -3,6 +3,8 @@ module github.com/jessicaxiejw/throttlers
 go 1.12
 
 require (
-	github.com/stretchr/testify v1.3.0
-	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/stretchr/testify v1.6.1
+	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )
