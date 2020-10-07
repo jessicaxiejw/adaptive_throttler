@@ -1,4 +1,4 @@
-module github/jessicaxiejw/adaptive_throttler
+module github.com/jessicaxiejw/throttlers
 
 go 1.12
 
