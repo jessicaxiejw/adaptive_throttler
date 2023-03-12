@@ -1,16 +1,16 @@
-# Adaptive Throttler
+# Throttlers
 
-A thread-safe throttler library that
-- generic for different use cases(eg/ controls the rate limit per host, limit database reads/writes, and etc)
+A thread-safe throttler library that is:
+- generic for different use cases (e.g. controls the rate limit per host, limit database reads/writes, etc.)
 - easy to keep track of throttlers for multiple use cases
 - allows you to ramp up and ramp down request rate per throttler
 
-The adaptive throttler is a wrapper around the [golang.org/x/time/rate](https://godoc.org/golang.org/x/time/rate) library.
+Throttlers is a wrapper around the [golang.org/x/time/rate](https://godoc.org/golang.org/x/time/rate) library.
 
 ## Installation
-`go get github.com/jessicaxiejw/adaptive_throttler`
+`go get github.com/jessicaxiejw/throttlers`
 
-See [godoc](https://godoc.org/github.com/jessicaxiejw/adaptive_throttler) for in-depth explanation on the functions and parameters.
+See [godoc](https://godoc.org/github.com/jessicaxiejw/throttlers) for in-depth explanation on the functions and parameters.
 
 ## Example Usage
 
@@ -52,13 +52,13 @@ Increment: 2
 Decrement: 1
 ```
 
-We would at first allow 10 requests/s for a given key. Two requests were successfully and we called the `Increment` function twice. The request rate limit was raised to StartingRate + 2 * Increment = 10 + 2 * 2 = 14 request/s.
+We would at first allow 10 requests/s for a given key. Two requests were successful and we called the `Increment` function twice. The request rate limit was raised to `StartingRate + 2 * Increment = 10 + 2 * 2 = 14` request/s.
 
-Right after, one request wasn't successful and you called `Decrement`. The rate limit was now set to (current request rate) - Decrement = 14 - 1 = 13 requests/s.
+Right after, one request wasn't successful and you called `Decrement`. The rate limit was now set to `(current request rate) - Decrement = 14 - 1 = 13` requests/s.
 
-We then successfully sent 4 requests, the new request rate should be (current request rate) + Increment * 4 = 13 + 2 * 4 = 21 requests/s. However, because the UpperBound was set to 20 requests/s, the new request rate actually became 20 requests/s.
+We then successfully sent 4 requests, the new request rate should be `(current request rate) + Increment * 4 = 13 + 2 * 4 = 21` requests/s. However, because the `UpperBound` was set to 20 requests/s, the new request rate actually became 20 requests/s.
 
-Say there were 20 unsuccessful requests in series, the new request rate would hit the LowerBound, which was 1 requests/s.
+Say there were 20 unsuccessful requests in series, the new request rate would hit the `LowerBound`, which was 1 requests/s.
 
 # Can the package only be used for handling HTTP requests?
 No.
